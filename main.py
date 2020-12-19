@@ -1,23 +1,30 @@
 from dotenv import load_dotenv
 import discord
+from discord.ext import commands
 import os
+
 load_dotenv()
+my_token = os.getenv('TOKEN')
 
-client = discord.Client()
+bot = commands.Bot(command_prefix='$')
 
 
-@client.event
+@bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    print("Ready!")
 
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
+@bot.command(name="ping",
+             help="long description",
+             brief="short description")
+async def ping(ctx):
+    await ctx.channel.send("pong")
 
 
-client.run(os.environ.get('TOKEN'))
+@bot.command(name="copycat",
+             help="This function repeats whatever you send to it.",
+             brief="brief")
+async def copycat(ctx, *args):
+    await ctx.channel.send(" ".join(args))
+
+bot.run(my_token)
