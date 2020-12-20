@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from discord.ext import commands
 import os
-from dice import roll_die
+from dice import roll_dice
 
 load_dotenv()
 my_token = os.getenv('TOKEN')
@@ -15,8 +15,8 @@ async def on_ready():
 
 
 @bot.command(name="roll")
-async def roll(ctx):
-    await ctx.channel.send(embed=roll_die())
+async def roll(ctx, num_dice):
+    await ctx.channel.send(embed=roll_dice(num_dice))
 
 
 @bot.command(name="ping",

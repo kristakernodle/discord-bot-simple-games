@@ -1,5 +1,8 @@
 import random
 import discord
+from PIL import Image
+import requests
+from io import BytesIO
 
 
 def roll_die():
@@ -17,11 +20,9 @@ def roll_die():
     die_url = "".join([roll_assets_dir_url, die_num, die_name_convention])
 
     image_dict = {"url": die_url}
+    embed_dict = {"thumbnail": image_dict}
+    return discord.Embed.from_dict(embed_dict)
 
-    embed_dict = {
-        "thumbnail": image_dict
-    }
 
-    die_img_embed = discord.Embed.from_dict(embed_dict)
-
-    return die_img_embed
+def roll_dice(num_dice):
+    pass
