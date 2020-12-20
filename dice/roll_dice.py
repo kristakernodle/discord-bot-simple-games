@@ -6,8 +6,8 @@ import cloudinary.uploader
 
 
 def get_asset_url(die_num):
-    roll_assets_dir_url = "https://raw.githubusercontent.com/kristakernodle/discord-bot-simple-games/9aecff71d3c5a4fa7693d594f67284a14f245981/dice/roll_assets/"
-    die_name_convention = "_black_dice.svg"
+    roll_assets_dir_url = "https://raw.githubusercontent.com/kristakernodle/discord-bot-simple-games/main/dice/roll_assets/"
+    die_name_convention = "_black_dice.png"
     return "".join([roll_assets_dir_url, str(die_num), die_name_convention])
 
 
