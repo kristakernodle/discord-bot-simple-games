@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
-import discord
 from discord.ext import commands
 import os
+from dice import roll_die
 
 load_dotenv()
 my_token = os.getenv('TOKEN')
@@ -14,16 +14,21 @@ async def on_ready():
     print("Ready!")
 
 
+@bot.command(name="roll")
+async def roll(ctx):
+    await ctx.channel.send(roll_die())
+
+
 @bot.command(name="ping",
-             help="long description",
-             brief="short description")
+             help="When you type $ping, I return pong!",
+             brief="Returns pong")
 async def ping(ctx):
     await ctx.channel.send("pong")
 
 
 @bot.command(name="copycat",
-             help="This function repeats whatever you send to it.",
-             brief="brief")
+             help="I will repeat whatever you type after $copycat",
+             brief="Returns input (stop copying me!)")
 async def copycat(ctx, *args):
     await ctx.channel.send(" ".join(args))
 
