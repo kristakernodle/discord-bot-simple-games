@@ -3,8 +3,7 @@ import discord
 
 
 def roll_die():
-    roll_assets_dir_url = "https://raw.githubusercontent.com/kristakernodle/discord-bot-simple-games/main/dice" \
-                          "/roll_assets/ "
+    roll_assets_dir_url = "https://raw.githubusercontent.com/kristakernodle/discord-bot-simple-games/main/dice/roll_assets/"
     die_name_convention = "_dice_magicon_nounproject.png"
     asset_dict = {1: "one",
                   2: "two",
@@ -17,7 +16,12 @@ def roll_die():
     die_num = asset_dict[die]
     die_url = "".join([roll_assets_dir_url, die_num, die_name_convention])
 
-    die_img_embed = discord.Embed(author="Magicon from the Noun Project",
-                                  description=f"rolled: {die}",
-                                  url=die_url)
+    image_dict = {"url": die_url}
+
+    embed_dict = {
+        "thumbnail": image_dict
+    }
+
+    die_img_embed = discord.Embed.from_dict(embed_dict)
+
     return die_img_embed

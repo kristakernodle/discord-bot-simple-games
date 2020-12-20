@@ -16,7 +16,7 @@ async def on_ready():
 
 @bot.command(name="roll")
 async def roll(ctx):
-    await ctx.channel.send(roll_die())
+    await ctx.channel.send(embed=roll_die())
 
 
 @bot.command(name="ping",
