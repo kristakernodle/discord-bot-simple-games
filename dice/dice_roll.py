@@ -7,6 +7,7 @@ import os
 from PIL import Image
 import random
 import requests
+from .CloudImgHTMLParser import parse_html_get_src
 
 
 def embed_image(image_url, footer=''):
@@ -23,12 +24,12 @@ def cloudinary_public_id(rolled_dice):
 
 
 def roll_dice(num_dice):
-    dice_list = [1, 2, 3, 4, 5, 6]
-    rolled_dice = random.choices(dice_list, k=num_dice)
-
     cloudinary.config(cloud_name=os.getenv('CLOUD_NAME'),
                       api_key=os.getenv('CLOUD_API_KEY'),
                       api_secret=os.getenv('CLOUD_API_SECRET'))
+
+    dice_list = [1, 2, 3, 4, 5, 6]
+    rolled_dice = random.choices(dice_list, k=num_dice)
 
     cloudinary_url = cloudinary.CloudinaryImage(cloudinary_public_id(rolled_dice)).url
     pub_id_status = requests.get(cloudinary_url).status_code
@@ -52,8 +53,9 @@ def roll_dice(num_dice):
         image_bytes = buf.read()
         buf.close()
 
-        upload_response = cloudinary.uploader.upload(image_bytes,
-                                                     public_id=cloudinary_public_id(rolled_dice).strip('.png'))
+        cloudinary.uploader.upload(image_bytes,
+                                   public_id=cloudinary_public_id(rolled_dice).strip('.png'))
 
-        return embed_image(upload_response['url'], ", ".join(list(map(str, rolled_dice))))
-    return embed_image(cloudinary_url, ", ".join(list(map(str, rolled_dice))))
+    cloud_img = cloudinary.CloudinaryImage(cloudinary_public_id(rolled_dice)).image(height=100, crop="scale")
+    src_url = parse_html_get_src(cloud_img)
+    return embed_image(src_url, ", ".join(list(map(str, rolled_dice))))
