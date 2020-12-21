@@ -17,7 +17,8 @@ async def on_ready():
 @bot.command(name="roll")
 async def roll(ctx, num_dice=1):
     if num_dice > 10:
-        await ctx.channel.send("I can only roll a maximums of 10 dice at once!")
+        await ctx.channel.send("I can only roll a maximums of 3 dice at once!")
+    await ctx.channel.send("Rolling...")
     await ctx.channel.send(embed=roll_dice(num_dice))
 
 

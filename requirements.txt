@@ -1,2 +1,4 @@
 python-dotenv~=0.15.0
-discord.py
+cloudinary~=1.24.0
+requests~=2.25.1
+Pillow~=8.0.1
