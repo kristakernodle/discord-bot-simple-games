@@ -57,5 +57,3 @@ def roll_dice(num_dice):
 
         return embed_image(upload_response['url'], ", ".join(list(map(str, rolled_dice))))
     return embed_image(cloudinary_url, ", ".join(list(map(str, rolled_dice))))
-
-
